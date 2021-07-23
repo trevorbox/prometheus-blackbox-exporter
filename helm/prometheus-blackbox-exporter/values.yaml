@@ -81,3 +81,8 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+okta:
+  client_id: 
+  client_secret: 
+  token_url: 

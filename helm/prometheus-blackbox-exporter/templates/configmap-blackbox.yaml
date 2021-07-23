@@ -18,17 +18,16 @@ data:
           ip_protocol_fallback: false  # no fallback to "ip6"
           fail_if_not_ssl: true
           # OAuth 2.0 configuration to use to connect to the targets.
-          # oauth2:
-          #   client_id: <string>
-          #   client_secret: <secret>
-          #   # Read the client secret from a file.
-          #   # It is mutually exclusive with `client_secret`.
-          #   client_secret_file: <filename>
-          #   # Scopes for the token request.
-          #   scopes:
-          #     - <string>
-          #   # The URL to fetch the token from.
-          #   token_url: <string>
-          #   # Optional parameters to append to the token URL.
-          #   endpoint_params:
-          #     [ <string>: <string> ... ]
+          oauth2:
+            client_id: {{ .Values.okta.client_id }}
+            # Read the client secret from a file.
+            # It is mutually exclusive with `client_secret`.
+            client_secret_file: /secrets/okta/CLIENT_SECRET
+            # Scopes for the token request.
+            scopes:
+              - blackbox
+            # The URL to fetch the token from.
+            token_url: {{ .Values.okta.token_url }}
+            # Optional parameters to append to the token URL.
+            # endpoint_params:
+            #   [ <string>: <string> ... ]

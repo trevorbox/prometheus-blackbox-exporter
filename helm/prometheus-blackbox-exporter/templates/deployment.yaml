@@ -38,7 +38,7 @@ spec:
               containerPort: 9115
               protocol: TCP
           args:
-            - '--config.file=/config/blackbox.yaml'
+            - '--config.file=/configmaps/blackbox/blackbox.yaml'
           livenessProbe:
             httpGet:
               path: /-/healthy
@@ -51,7 +51,9 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             - name: blackbox
-              mountPath: /config
+              mountPath: /configmaps/blackbox
+            - name: okta
+              mountPath: /secrets/okta
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -68,4 +70,8 @@ spec:
         - name: blackbox
           configMap:
             name: blackbox
+            defaultMode: 420
+        - name: okta
+          secret:
+            secretName: okta
             defaultMode: 420
