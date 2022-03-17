@@ -39,6 +39,7 @@ spec:
               protocol: TCP
           args:
             - '--config.file=/configmaps/blackbox/blackbox.yaml'
+            - --log.level=debug
           livenessProbe:
             httpGet:
               path: /-/healthy
@@ -54,6 +55,10 @@ spec:
               mountPath: /configmaps/blackbox
             - name: okta
               mountPath: /secrets/okta
+            {{- if .Values.tls_verify.enabled }}
+            - name: ingressgateway-rootca
+              mountPath: /secrets/ingressgateway-rootca
+            {{- end}}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -75,3 +80,9 @@ spec:
           secret:
             secretName: okta
             defaultMode: 420
+        {{- if .Values.tls_verify.enabled }}
+        - name: ingressgateway-rootca
+          secret:
+            secretName: ingressgateway-rootca
+            defaultMode: 420
+        {{- end }}

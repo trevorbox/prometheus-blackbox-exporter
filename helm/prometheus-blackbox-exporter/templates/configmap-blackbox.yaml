@@ -17,6 +17,13 @@ data:
           preferred_ip_protocol: "ip4" # defaults to "ip6"
           ip_protocol_fallback: false  # no fallback to "ip6"
           fail_if_not_ssl: true
+          tls_config:
+            {{- if .Values.tls_verify.enabled }}
+            insecure_skip_verify: false
+            ca_file: /secrets/ingressgateway-rootca/ca.crt
+            {{- else }}
+            insecure_skip_verify: true
+            {{- end }}
           # OAuth 2.0 configuration to use to connect to the targets.
           oauth2:
             client_id: {{ .Values.okta.client_id }}

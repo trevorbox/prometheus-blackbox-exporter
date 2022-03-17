@@ -21,6 +21,8 @@ curl "http://localhost:9115/probe?target=https://google.com&module=http_2xx"
 
 ```sh
 helm upgrade -i prometheus-blackbox-exporter helm/prometheus-blackbox-exporter -n sre-monitoring --create-namespace \
+  --set tls_verify.ca="$(oc get secret ingressgateway-rootca -n istio-system -o jsonpath={.data.ca\\.crt} | base64 -d)" \
+  --set tls_verify.enabled=true \
   --set okta.client_id=<my_client_id> \
   --set okta.client_secret=<my_client_secret> \
   --set okta.token_url=<my_token_url> # example: https://dev-338970.okta.com/oauth2/default/v1/token

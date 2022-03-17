@@ -5,10 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: quay.io/prometheus/blackbox-exporter@sha256
+  repository: quay.io/prometheus/blackbox-exporter
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "94de5897eef1b3c1ba7fbfebb9af366e032c0ff915a52c0066ff2e0c1bcd2e45"
+  tag: "latest"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -86,3 +86,7 @@ okta:
   client_id: 
   client_secret: 
   token_url: 
+
+tls_verify: 
+  enabled: true
+  ca: 
