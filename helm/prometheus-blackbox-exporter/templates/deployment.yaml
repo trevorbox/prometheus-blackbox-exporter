@@ -39,7 +39,7 @@ spec:
               protocol: TCP
           args:
             - '--config.file=/configmaps/blackbox/blackbox.yaml'
-            - --log.level=debug
+            - --log.level={{ .Values.log.level }}
           livenessProbe:
             httpGet:
               path: /-/healthy

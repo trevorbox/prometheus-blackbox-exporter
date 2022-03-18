@@ -90,3 +90,6 @@ okta:
 tls_verify: 
   enabled: true
   ca: 
+
+log:
+  level: info # or debug
